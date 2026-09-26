@@ -1,12 +1,15 @@
 /** Masthead for the printed report; hidden on screen. */
 import React from 'react';
 import { today, trim } from '../lib/format.js';
+import TeamBanner, { TeamMembers } from './TeamBanner.jsx';
 import { CEMENT_TYPES, IS456_TABLE_3_EXPOSURE } from '../lib/tables.js';
 
 export default function ReportHeader({ result }) {
   const { input } = result;
   return (
     <div className="report-head print-only">
+      <TeamBanner className="team-print" />
+      <TeamMembers className="team-group-print" />
       <span className="standard-mark">IS 10262 : 2019 · Concrete mix proportioning, guidelines</span>
       <h1>Concrete mix design, M {input.fck}</h1>
       <div className="meta">

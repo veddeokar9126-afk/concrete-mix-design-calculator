@@ -12,6 +12,14 @@ const X0 = 0.25;
 const X1 = 0.65;
 const Y1 = 80;
 
+/* Legend wording follows the notes to Figure 1: the curve is chosen by
+   the 28 day strength of the cement. */
+const LEGEND = [
+  { c: 1, label: 'Curve 1 · cement 33 to 43 N/mm²' },
+  { c: 2, label: 'Curve 2 · cement 43 to 53 N/mm²' },
+  { c: 3, label: 'Curve 3 · cement 53 N/mm² and over' },
+];
+
 const px = (wc) => PAD.l + ((wc - X0) / (X1 - X0)) * (W - PAD.l - PAD.r);
 const py = (s) => H - PAD.b - (s / Y1) * (H - PAD.t - PAD.b);
 
@@ -59,14 +67,41 @@ export default function Fig1Plot({ activeCurve, wc, strength, tolerance = 0.01 }
         </text>
 
         {paths.map((p) => (
-          <path key={p.c} className={`curve${p.c === activeCurve ? ' live' : ''}`} d={p.d} />
+          <path key={p.c} className={`curve c${p.c}${p.c === activeCurve ? ' live' : ''}`} d={p.d} />
         ))}
         {paths.map((p) => (
-          <text key={`l${p.c}`} className="curvelabel"
+          <text key={`l${p.c}`} className={`curvelabel c${p.c}`}
             x={px(0.255) + 2} y={py(FIG_1_CURVES[p.c][0]) - 3}>
             {p.c}
           </text>
         ))}
+
+        <g className="legend" transform={`translate(${px(0.44)} ${PAD.t + 4})`}>
+          <rect className="legend-box" x={0} y={0} width={146} height={showMarker ? 62 : 38} rx={2} />
+          {LEGEND.map((l, i) => (
+            <g key={l.c} transform={`translate(6 ${9 + i * 10})`}>
+              <line className={`curve c${l.c}${l.c === activeCurve ? ' live' : ''}`} x1={0} x2={14} y1={0} y2={0} />
+              <text className="legend-text" x={18} y={2.3}>
+                {l.label}
+                {l.c === activeCurve ? ' (in use)' : ''}
+              </text>
+            </g>
+          ))}
+          {showMarker && (
+            <>
+              <g transform="translate(6 39)">
+                <circle className="marker" cx={7} cy={0} r={2.4} />
+                <text className="legend-text" x={18} y={2.3}>
+                  Design point · w/c {Number(wc).toFixed(3)} at {Number(strength).toFixed(2)} N/mm²
+                </text>
+              </g>
+              <g transform="translate(6 49)">
+                <rect className="band" x={4} y={-3.5} width={6} height={7} style={{ opacity: 0.25 }} />
+                <text className="legend-text" x={18} y={2.3}>±0.01 reading tolerance</text>
+              </g>
+            </>
+          )}
+        </g>
 
         {showMarker && (
           <>

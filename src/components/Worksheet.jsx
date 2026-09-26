@@ -31,6 +31,7 @@ import {
 } from '../lib/tables.js';
 import { Field, NumberInput, Select, Segmented, Toggle, Section, Callout } from './fields.jsx';
 import SDCalculator from './SDCalculator.jsx';
+import SDByCubes from './SDByCubes.jsx';
 import Fig1Plot from './Fig1Plot.jsx';
 import { trim } from '../lib/format.js';
 
@@ -372,6 +373,17 @@ export default function Worksheet({ input, set, result }) {
             </div>
           </>
         )}
+
+        <div className="field wide">
+          <span className="field-label" style={{ marginBottom: '0.5rem', display: 'block' }}>
+            S by number of cube results
+            <span className="hint">
+              Clause 4.2.1: with fewer than 30 results the assumed value of Table 2 is used; with 30 or
+              more, S is calculated from the results.
+            </span>
+          </span>
+          <SDByCubes input={input} set={set} />
+        </div>
 
         <div className="field wide" style={{ paddingTop: '0.75rem' }}>
           <Callout kind="info" title={`Target mean strength f'ck = ${trim(result.targetStrength, 2)} N/mm²`}>

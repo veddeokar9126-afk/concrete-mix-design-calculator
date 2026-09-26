@@ -15,8 +15,12 @@ import Methodology from './components/Methodology.jsx';
 import SavedDesigns from './components/SavedDesigns.jsx';
 import ReportHeader from './components/ReportHeader.jsx';
 import ChecksTable from './components/ChecksTable.jsx';
+import FormulaSheet from './components/FormulaSheet.jsx';
+import SDByCubes from './components/SDByCubes.jsx';
+import TeamBanner, { TeamMembers } from './components/TeamBanner.jsx';
 import { Callout } from './components/fields.jsx';
 import { trim } from './lib/format.js';
+import { INSTITUTE, GROUP } from './lib/team.js';
 
 const VIEWS = [
   { id: 'design', label: 'Mix design' },
@@ -35,6 +39,7 @@ const SECTIONS = [
 const OUTPUTS = [
   { id: 'proportions', label: 'Mix proportions' },
   { id: 'calc', label: 'Calculation sheet' },
+  { id: 'formulae', label: 'Formulae' },
   { id: 'grading', label: 'Aggregate grading' },
   { id: 'batch', label: 'Batch quantities' },
   { id: 'trials', label: 'Trial mixes' },
@@ -103,6 +108,10 @@ export default function App() {
   return (
     <>
       <header className="masthead no-print">
+        <TeamBanner />
+        <div className="shell team-strip">
+          <TeamMembers />
+        </div>
         <div className="shell">
           <div className="masthead-inner">
             <div>
@@ -163,6 +172,7 @@ export default function App() {
               <div className="opanel">
                 {panel('proportions', <Proportions result={result} />)}
                 {panel('calc', <CalculationSheet result={result} />)}
+                {panel('formulae', <FormulaSheet result={result} />)}
                 {panel('grading', <GradingBlend result={result} state={grading} setState={setGrading} />)}
                 {panel('batch', <BatchPanel result={result} />)}
                 {panel('trials', <TrialMixes result={result} />)}
@@ -172,8 +182,15 @@ export default function App() {
             {/* The printed report, assembled in report order. The
                 worksheet and the on screen output panel do not print. */}
             <div className="print-only">
-              <h2 className="report-h2">Calculation sheet</h2>
+              <h2 className="report-h2">Standard deviation by number of cube results</h2>
+              <SDByCubes input={input} set={set} readOnly />
+
+              <h2 className="report-h2" style={{ marginTop: '14pt' }}>Calculation sheet, step by step</h2>
               <CalculationSheet result={result} />
+
+              <div className="page-break" />
+              <h2 className="report-h2">Formulae used in the calculations</h2>
+              <FormulaSheet result={result} />
 
               <div className="page-break" />
               <h2 className="report-h2">Mix proportions</h2>
@@ -223,18 +240,23 @@ export default function App() {
       </main>
 
       <footer className="foot shell no-print">
-        <p>
-          Built on the procedure of IS 10262 : 2019, <em>Concrete mix proportioning — Guidelines</em>{' '}
-          (second revision), with durability limits from IS 456 : 2000 and aggregate grading from IS 383
-          : 2016. Sections 2 to 5 of the standard are implemented: ordinary and standard grades, high
-          strength grades, self compacting concrete and mass concrete, with the combination of coarse
-          aggregate fractions of clause 5.6.
-        </p>
-        <p>
-          The calculated proportions are a starting point for the trial batches the standard requires,
-          not a substitute for them. Current design, {section.num.toLowerCase()}:{' '}
-          {result.usesMineral ? 'w/cm' : 'w/c'} {trim(result.usesMineral ? result.wcm : result.wc, 3)},
-          cementitious {result.cementitious} kg/m³, {result.ratio.label}.
+        <div className="foot-body">
+          <p>
+            Built on the procedure of IS 10262 : 2019, <em>Concrete mix proportioning — Guidelines</em>{' '}
+            (second revision), with durability limits from IS 456 : 2000 and aggregate grading from IS 383
+            : 2016. Sections 2 to 5 of the standard are implemented: ordinary and standard grades, high
+            strength grades, self compacting concrete and mass concrete, with the combination of coarse
+            aggregate fractions of clause 5.6.
+          </p>
+          <p>
+            The calculated proportions are a starting point for the trial batches the standard requires,
+            not a substitute for them. Current design, {section.num.toLowerCase()}:{' '}
+            {result.usesMineral ? 'w/cm' : 'w/c'} {trim(result.usesMineral ? result.wcm : result.wc, 3)},
+            cementitious {result.cementitious} kg/m³, {result.ratio.label}.
+          </p>
+        </div>
+        <p className="foot-credit">
+          © {new Date().getFullYear()} {GROUP}, {INSTITUTE.name}
         </p>
       </footer>
     </>
