@@ -99,11 +99,10 @@ cement_bag = (P('M0 10q0-10 10-10h60q10 0 10 10v70q0 10-10 10h-60q-10 0-10-10z',
   + '<text x="40" y="44" font-size="11" font-family="monospace" text-anchor="middle" fill="#7c1d2f">OPC 53</text>'
   + '<text x="40" y="72" font-size="9" font-family="monospace" text-anchor="middle" fill="#6f6a60">50 kg</text>')
 
-W, H = 1000, 760
-parts = [g(250, 60, crane), g(560, 120, frame), g(40, 330, bridge), g(560, 440, truck), g(70, 580, cone),
-         g(830, 300, cube), g(420, 300, beam), g(760, 610, rebar, 1, -8), g(800, 36, blend, 0.8),
-         g(360, 620, stones(14, 110, 70)), g(900, 680, stones(9, 80, 60)), g(870, 150, stones(7, 70, 50)),
-         g(24, 190, cement_bag, 0.8)]
+# Kept deliberately sparse: four drawings in a zig-zag across the tile,
+# so no side of a panel collects them all.
+W, H = 1100, 900
+parts = [g(190, 70, crane), g(660, 140, bridge), g(400, 560, cube), g(820, 640, truck)]
 svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
        f'stroke-linecap="round" stroke-linejoin="round"><g opacity="OPACITY">{"".join(parts)}</g></svg>')
 import sys

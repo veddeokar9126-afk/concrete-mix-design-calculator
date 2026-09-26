@@ -62,7 +62,7 @@
      crane, RC frame, arch bridge, beam section, transit mixer, slump
      cone, test cube, grading curve and aggregate. Not fixed: a fixed
      background repaints on every scroll and made long pages stutter. */
-  --civil: url('./assets/bg/civil-pattern.svg') 0 0 / 1000px auto repeat;
+  --civil: url('./assets/bg/civil-pattern.svg') 0 0 / 1100px auto repeat;
 }
 
 * { box-sizing: border-box; }
