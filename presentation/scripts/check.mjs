@@ -25,7 +25,7 @@ await page.waitForTimeout(500);
 
 const labels = await page.evaluate(() => {
   const out = [];
-  for (let i = 1; i <= 16; i += 1) out.push(String(i).padStart(2, '0'));
+  for (let i = 1; i <= 15; i += 1) out.push(String(i).padStart(2, '0'));
   return [...out, 'B1', 'B2', 'B3', 'B4'];
 });
 

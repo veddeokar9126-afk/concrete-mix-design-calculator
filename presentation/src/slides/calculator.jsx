@@ -88,7 +88,7 @@ export function CalcSlide() {
     <>
       <div className="calc-head">
         <div>
-          <Kicker>09 · Live demo · the real engine</Kicker>
+          <Kicker>08 · Live demo · the real engine</Kicker>
           <h1 className="title">Change an input, watch the mix respond</h1>
         </div>
       </div>
@@ -307,7 +307,7 @@ export function DemoSlide() {
 
   return (
     <>
-      <Head kicker="10 · Full demo" title="Now on the real site" />
+      <Head kicker="09 · Full demo" title="Now on the real site" />
       <div className="demo">
         <div className="demo-left">
           <div className="demo-qr">

@@ -205,10 +205,10 @@ export function TimelineSlide({ step, setStep }) {
 export function ArchitectureSlide({ step }) {
   return (
     <>
-      <Head kicker="04 · Architecture" title="Inputs → one engine → every output" />
-      <div className="arch">
-        <div className="arch-col">
-          <Kicker>Inputs</Kicker>
+      <Head kicker="03 · How we developed it" title="Inputs in, every output out" />
+      <div className="arch2">
+        <div className="arch2-col">
+          <Kicker>You enter</Kicker>
           <div className="arch-card">
             <h4>Mix data</h4>
             <p>grade · cement · aggregate size · exposure · slump · placing · sand zone · site control</p>
@@ -222,40 +222,35 @@ export function ArchitectureSlide({ step }) {
             <p>superplasticizer dose and water cut · fly ash · GGBS · silica fume</p>
           </div>
         </div>
-        <R at={1} step={step} className="arch-flow">
-          <span />
-        </R>
-        <R at={1} step={step} className="arch-engine">
-          <Kicker className="light">Engine · src/lib</Kicker>
-          <ul>
-            {ENGINE_FILES.map((f) => (
-              <li key={f.file}>
-                <code>{f.file}</code>
-                <span>{f.role}</span>
-              </li>
+        <div className="arch2-mid">
+          <div className="arch2-arrow" aria-hidden />
+          <p>
+            IS 10262 · IS 456 · IS 383
+            <br />
+            applied clause by clause
+            <br />
+            in your browser
+          </p>
+        </div>
+        <R at={1} step={step} className="arch2-col">
+          <Kicker>You get</Kicker>
+          <div className="arch2-outs">
+            {[
+              ['Calculation sheet', 'every line with its clause'],
+              ['Durability checks', 'IS 456 pass / fail'],
+              ['Proportions', 'kg/m³ and mix ratio'],
+              ['Aggregate grading', 'blend to IS 383'],
+              ['Batch quantities', 'any volume, 50 kg bags'],
+              ['Trial mixes', 'w/c ± 10 %'],
+              ['Printed A4 report', 'for submission'],
+              ['Verification', 'all six IS examples'],
+            ].map(([a, b]) => (
+              <div className="arch2-out" key={a}>
+                <b>{a}</b>
+                <span>{b}</span>
+              </div>
             ))}
-          </ul>
-          <div className="arch-pure">pure functions · no React · no server</div>
-        </R>
-        <R at={2} step={step} className="arch-flow">
-          <span />
-        </R>
-        <R at={2} step={step} className="arch-col arch-outs">
-          <Kicker>Outputs</Kicker>
-          {[
-            ['Calculation sheet', 'every line with its clause'],
-            ['Durability checks', 'IS 456 pass / fail'],
-            ['Proportions', 'kg/m³ and mix ratio'],
-            ['Aggregate grading', 'blend to IS 383'],
-            ['Batch quantities', 'any volume, 50 kg bags'],
-            ['Trial mixes', 'w/c ± 10 %'],
-            ['Printed A4 report', 'for submission'],
-          ].map(([a, b]) => (
-            <div className="arch-out" key={a}>
-              <b>{a}</b>
-              <span>{b}</span>
-            </div>
-          ))}
+          </div>
         </R>
       </div>
     </>
@@ -326,7 +321,7 @@ export function ScopeSlide() {
   const cur = SECTIONS_INFO.find((s) => s.id === sel);
   return (
     <>
-      <Head kicker="05 · Scope" title="All four design sections of IS 10262" lede="Click a section to see how its procedure differs." />
+      <Head kicker="04 · Scope" title="All four design sections of IS 10262" lede="Click a section to see how its procedure differs." />
       <div className="scope-cards">
         {SECTIONS_INFO.map((s) => (
           <button type="button" key={s.id} className={`scope-card ${sel === s.id ? 'on' : ''}`} onClick={() => setSel(s.id)}>

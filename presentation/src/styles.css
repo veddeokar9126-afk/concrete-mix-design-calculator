@@ -840,3 +840,41 @@ body.print .arch-flow span { animation: none; }
 .pipeline { gap: 0; }
 .pl-step { padding: 8px 18px; font-size: 23px; }
 .pl-arrow { font-size: 22px; margin: 2px 0 2px 40px; }
+
+/* ---- revision 2: architecture without the engine table ---- */
+.arch2 { display: grid; grid-template-columns: 1fr 300px 1.15fr; gap: 30px; align-items: center; flex: 1; min-height: 0; margin-top: -10px; }
+.arch2-col { display: flex; flex-direction: column; gap: 18px; }
+.arch2 .arch-card { padding: 26px 30px; }
+.arch2 .arch-card h4 { font-size: 32px; }
+.arch2 .arch-card p { font-size: 24px; color: var(--ink-2); }
+.arch2-mid { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.arch2-arrow { width: 100%; height: 10px; background: repeating-linear-gradient(90deg, var(--maroon) 0 22px, transparent 22px 34px); background-size: 34px 10px; position: relative; animation: flow 0.9s linear infinite; }
+.arch2-arrow::after { content: ''; position: absolute; right: -14px; top: -17px; border: 22px solid transparent; border-left: 28px solid var(--maroon); border-right: 0; }
+.arch2-mid p { font: 500 22px/1.5 var(--mono); color: var(--ink-2); text-align: center; }
+.arch2-outs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.arch2-out { background: #fff; border: 2px solid var(--rule-soft); border-radius: 14px; padding: 18px 22px; display: flex; flex-direction: column; gap: 4px; }
+.arch2-out b { font-size: 26px; font-weight: 600; color: var(--ink); }
+.arch2-out span { font-size: 21px; color: var(--ink-2); }
+@keyframes flow { to { background-position: 34px 0; } }
+body.print .arch2-arrow { animation: none; }
+
+/* ---- revision 2: page 2 in dark, readable text ---- */
+.lookup span, .pb-tape, .pb-stat, .pb-out li { color: var(--ink); }
+.lookup span { font-weight: 500; }
+.problem.is-calc .pb-hand { opacity: 0.55; filter: grayscale(0.5); }
+body.print .problem.is-calc .pb-hand { opacity: 1; filter: none; }
+
+/* ---- revision 2: cover, members in a box, in bold ---- */
+.ts-group { flex-direction: row; align-items: center; gap: 30px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(242, 195, 91, 0.75); border-radius: 18px; padding: 22px 30px; align-self: flex-start; }
+.ts-group ul { gap: 14px 46px; }
+.ts-group li { font-size: 28px; font-weight: 700; color: #fff; }
+.ts-group code { font-weight: 600; }
+.ts-group-tag { margin-top: 0; }
+.ts-group { flex-direction: column; align-items: flex-start; gap: 16px; padding: 22px 30px 24px; }
+.ts-group ul { grid-template-columns: repeat(3, max-content); gap: 12px 40px; }
+.ts-group li { font-size: 26px; }
+.ts-group code { font-size: 19px; }
+.ts-group-tag { white-space: nowrap; }
+.title-slide { grid-template-columns: minmax(0, 1fr) 620px; }
+.arch2 { grid-template-columns: 1fr 350px 1.15fr; }
+.arch2-mid p { font-size: 20px; white-space: nowrap; }

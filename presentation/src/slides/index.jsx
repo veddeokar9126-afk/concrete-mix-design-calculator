@@ -4,7 +4,7 @@
  * slide reveals before moving on. Notes are written to be spoken.
  */
 import { TitleSlide, ProblemSlide, CubeSlide } from './intro.jsx';
-import { TimelineSlide, ArchitectureSlide, ScopeSlide } from './develop.jsx';
+import { ArchitectureSlide, ScopeSlide } from './develop.jsx';
 import { ProcedureSlide, Fig1Slide, DurabilitySlide } from './procedure.jsx';
 import { CalcSlide, DemoSlide } from './calculator.jsx';
 import { VerificationSlide, HandSlide, FeaturesSlide, LimitsSlide, ConclusionSlide } from './results.jsx';
@@ -23,7 +23,7 @@ const MAIN = [
     Component: TitleSlide,
     dark: true,
     presenter: 1,
-    target: 20,
+    target: 30,
     steps: 0,
     notes: [
       'Good afternoon. We are Group 08: Ved, Vikas, Vishandeep, Yamini and Yash.',
@@ -36,7 +36,7 @@ const MAIN = [
     title: 'The problem',
     Component: ProblemSlide,
     presenter: 1,
-    target: 35,
+    target: 45,
     steps: 1,
     notes: [
       'Designing even one mix by hand means about eight table lookups, plus reading a value off a graph, plus a long chain of arithmetic.',
@@ -49,7 +49,7 @@ const MAIN = [
     title: 'Mix design in one picture',
     Component: CubeSlide,
     presenter: 1,
-    target: 40,
+    target: 50,
     steps: 5,
     notes: [
       'The whole idea of mix design fits in one cubic metre. This is the absolute volume method: every material takes up its solid volume, which is its mass divided by specific gravity times 1000.',
@@ -58,31 +58,17 @@ const MAIN = [
     ],
   },
   {
-    id: 'develop',
-    title: 'How we developed it',
-    Component: TimelineSlide,
-    presenter: 1,
-    target: 60,
-    steps: 7,
-    notes: [
-      'This is how we built it, in seven stages.',
-      '[1] First we studied IS 10262, IS 456 and IS 383 clause by clause and listed every table and check. [Click] [2] Then we typed every table into one data file, tables.js. For example, this is Table 5 for coarse aggregate volume, with the 2019 values.',
-      '[Click] [3] Figure 1 is a graph, not a table, so we digitised its three curves at every 0.01 of w/c from 0.25 to 0.65. That is 123 points. The calculator finds w/c by inverse interpolation between the two points on either side.',
-      '[Click] [4] The engine is plain JavaScript functions: inputs in, a clause-by-clause sheet out. [Click] [5] On top we built the interface in React and Vite. [Click] [6] We verified it against all six worked examples in the standard.',
-      '[Click] [7] It is hosted free on GitHub Pages. Every time we push code, GitHub Actions runs the verification first; if any number drifts from the standard, it does not deploy. [Click] There is no backend; everything runs in the browser.',
-    ],
-  },
-  {
     id: 'arch',
-    title: 'Architecture',
+    title: 'How we developed it',
     Component: ArchitectureSlide,
     presenter: 1,
-    target: 25,
-    steps: 2,
+    target: 55,
+    steps: 1,
     notes: [
-      'The structure is simple. On the left are the inputs: mix data, material test results and admixtures.',
-      '[Click] They go into one engine, in the folder src/lib. Each file has one job: the tables, the main procedure, self-compacting concrete, moisture correction, aggregate grading and verification.',
-      '[Click] Out come the calculation sheet, the durability checks, the proportions and ratio, grading, batch quantities, trial mixes and a printed report.',
+      'This is how we developed it. First we studied IS 10262, IS 456 and IS 383 clause by clause and listed every table and check a mix design uses. Then we typed every table into one data file, so the 2019 values are used everywhere.',
+      'Figure 1 is a graph, not a table, so we digitised its three curves at every 0.01 of w/c from 0.25 to 0.65. That is 123 points; the calculator finds w/c by interpolating between the two points either side of the target strength.',
+      'We wrote the procedure as plain JavaScript functions and built the interface in React. We checked it against all six worked examples of the standard, and it is hosted free on GitHub Pages, where every update runs that check before going live. There is no server; it runs in the browser.',
+      'On the slide: you give it mix data, material test results and admixture details. [Click] It gives back the full calculation sheet with clauses, the IS 456 checks, the proportions and ratio, grading, batch quantities, trial mixes and a printed report.',
     ],
   },
   {
@@ -170,7 +156,7 @@ const MAIN = [
     title: 'Verification',
     Component: VerificationSlide,
     presenter: 3,
-    target: 50,
+    target: 45,
     steps: 1,
     notes: [
       'How do we know it is correct? IS 10262 has six worked examples, Annexes A to F. We built all six into the calculator and compare every printed value.',
@@ -183,7 +169,7 @@ const MAIN = [
     title: 'Hand vs calculator',
     Component: HandSlide,
     presenter: 3,
-    target: 35,
+    target: 30,
     steps: 1,
     notes: [
       'We also designed the M40 by hand for our report. We read 0.35 from the graph and got 423 kg cement and a ratio of 1 : 1.52 : 2.91. The calculator in auto mode reads 0.35 too and gives exactly the same.',
@@ -195,7 +181,7 @@ const MAIN = [
     title: 'Extra features',
     Component: FeaturesSlide,
     presenter: 3,
-    target: 30,
+    target: 25,
     steps: 0,
     notes: [
       'Some extra features. Aggregate grading: blending 20 mm and 10 mm fractions 60 : 40 lands inside the IS 383 band, as Annex A says.',
@@ -207,7 +193,7 @@ const MAIN = [
     title: 'Limitations',
     Component: LimitsSlide,
     presenter: 3,
-    target: 25,
+    target: 20,
     steps: 0,
     notes: [
       'It has limits. It gives the first trial mix only; cube tests must confirm it. Figure 1 is a printed graph, so any reading carries about ±0.01.',

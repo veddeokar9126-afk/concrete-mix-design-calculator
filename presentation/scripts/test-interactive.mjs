@@ -56,7 +56,7 @@ await page.waitForTimeout(200);
 ok((await page.evaluate(() => location.hash)) === '#/12', '"12 Enter" jumps to slide 12');
 
 /* ---------- 06 scope cards ---------- */
-await go('06');
+await go('05');
 for (const name of ['High strength', 'Self-compacting', 'Mass concrete', 'Ordinary & standard']) {
   await page.locator(S + `.scope-card:has-text("${name}")`).click();
   await page.waitForTimeout(150);
@@ -67,7 +67,7 @@ ok((await page.locator(S + '.scope-detail').innerText()).includes('Table 8'), 'S
 await page.locator(S + '.scope-card:has-text("Ordinary & standard")').click();
 
 /* ---------- 07 procedure ---------- */
-await go('07');
+await go('06');
 const A = designMix(VERIFICATION_CASES[0].input);
 const procExpect = [
   [2, A.targetStrength.toFixed(2)],
@@ -84,10 +84,10 @@ for (const [k, want] of procExpect) {
   const got = (await page.locator(S + '.pd-num').innerText()).replace(/,/g, '');
   ok(got === want, `Procedure step ${k} shows ${want} (got ${got})`);
 }
-ok((await page.evaluate(() => location.hash)) === '#/07', 'Clicking procedure steps stays on slide 07');
+ok((await page.evaluate(() => location.hash)) === '#/06', 'Clicking procedure steps stays on slide 06');
 
 /* ---------- 08 Figure 1 ---------- */
-await go('08');
+await go('07');
 const read2 = async () => n(await page.locator(S + '.read.c2 b').innerText());
 ok((await read2()).toFixed(3) === fig1WaterCementRatio(2, 48.25).wc.toFixed(3), 'Fig. 1 at 48.25 shows the engine reading for Curve 2');
 await page.locator(S + 'input[type=range]').fill('30');
@@ -102,7 +102,7 @@ await page.locator(S + '.dur-pick button:text-is("Severe")').click();
 ok(await page.locator(S + '.is-read').count() === 1, 'Reset shows the "IS reads 0.36" marker');
 
 /* ---------- 09 durability ---------- */
-await go('09');
+await go('08');
 const durNums = async () => page.locator(S + '.dur-nums b').allInnerTexts();
 await page.locator(S + '.expo:has-text("Extreme")').click();
 await page.waitForTimeout(150);
@@ -117,7 +117,7 @@ await page.locator(S + '.expo:has(b:text-is("Severe"))').click();
 await page.locator(S + '.t6 button:has-text("20 mm")').click();
 
 /* ---------- 10 mini calculator ---------- */
-await go('10');
+await go('09');
 const base = { ...VERIFICATION_CASES[0].input, aggCondition: 'ssd' };
 const presets = {
   'M40 Annex A': {},
@@ -178,7 +178,7 @@ ok((await page.locator(S + '.stepper code').innerText()) === '0.37', 'Manual w/c
 await page.locator(S + '.presets button:has-text("M40 Annex A")').click();
 
 /* ---------- 11 demo ---------- */
-await go('11');
+await go('10');
 ok(await page.locator(S + '.browser-view img').count() === 1, 'Offline: demo slide shows the screenshot fallback');
 ok(await page.locator(S + 'svg.qr').count() === 1, 'QR code renders offline');
 await page.locator(S + '.demo-list li:nth-child(2) button').click();
@@ -187,15 +187,15 @@ ok(await page.locator(S + '.demo-list li.done').count() === 1, 'Checklist item t
 await page.locator(S + '.demo-list li:nth-child(2) button').click();
 
 /* ---------- 12, 13 reveal ---------- */
-await go('12');
-ok(await page.locator(S + '.vsum.in').count() === 0, 'Slide 12 starts with the table only');
+await go('11');
+ok(await page.locator(S + '.vsum.in').count() === 0, 'Slide 11 (verification) starts with the table only');
 await page.keyboard.press('ArrowRight');
 await page.waitForTimeout(200);
-ok(await page.locator(S + '.vsum.in').count() === 1, 'Slide 12 click reveals 83/83 summary');
+ok(await page.locator(S + '.vsum.in').count() === 1, 'Slide 11 click reveals 83/83 summary');
 ok((await page.locator(S + '.vbig b').first().innerText()).replace(/\s/g, '') === '83/83', 'Summary shows 83/83');
 
 /* ---------- presenter, audience window, overview ---------- */
-await go('07');
+await go('06');
 await page.keyboard.press('p');
 await page.waitForTimeout(300);
 ok(await page.locator('.presenter').count() === 1, 'P opens presenter mode');
@@ -212,7 +212,7 @@ const mainStep = await page.locator('.pv-current .proc li.cur .pr-n').innerText(
 ok(popupStep === mainStep, `Audience window follows the presenter (step ${mainStep})`);
 await page.keyboard.press('ArrowRight');
 await page.waitForTimeout(150);
-await go('10');
+await go('09');
 await page.locator('.pv-current .presets button:has-text("M20 in Severe")').click();
 await page.waitForTimeout(400);
 ok((await popup.locator('.stage .presets .chip.on').innerText()) === 'M20 in Severe', 'Calculator state mirrors to the audience window');
@@ -223,15 +223,18 @@ await page.waitForTimeout(200);
 ok(await page.locator('.presenter').count() === 0, 'P closes presenter mode');
 await page.keyboard.press('o');
 await page.waitForTimeout(400);
-ok((await page.locator('.ov-item').count()) === 20, 'O shows all 20 slides');
-await page.locator('.ov-item').nth(15).click();
+ok((await page.locator('.ov-item').count()) === 19, 'O shows all 19 slides (15 + 4 backups)');
+await page.locator('.ov-item').nth(14).click();
 await page.waitForTimeout(200);
-ok((await page.evaluate(() => location.hash)) === '#/16', 'Overview click jumps to slide 16');
+ok((await page.evaluate(() => location.hash)) === '#/15', 'Overview click jumps to slide 15');
 
 /* ---------- reload from a hash ---------- */
 await page.goto(url + '#/09');
 await page.waitForTimeout(300);
 ok((await page.locator('.stage .slide').getAttribute('data-slide')) === '09', 'Opening …#/09 lands on slide 09');
+await page.goto(url + '?slide=9');
+await page.waitForTimeout(300);
+ok((await page.locator('.stage .presets').count()) === 1, 'Opening ?slide=9 lands on the live calculator');
 
 console.log(errors.length ? `page errors: ${errors.join(' | ')}` : 'page errors: none');
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED');

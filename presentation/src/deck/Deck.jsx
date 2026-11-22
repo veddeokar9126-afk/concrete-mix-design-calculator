@@ -81,7 +81,7 @@ function PrintDeck() {
   }, []);
   return (
     <div className="print-deck">
-      {SLIDES.map((s, i) => (
+      {SLIDES.slice(0, MAIN_COUNT).map((s, i) => (
         <div className="print-page" key={s.id}>
           <SlideFrame index={i} step={s.printStep ?? s.steps} />
         </div>

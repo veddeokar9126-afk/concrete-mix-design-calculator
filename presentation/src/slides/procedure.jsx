@@ -158,7 +158,7 @@ void t2;
 function ProcedurePrint() {
   return (
     <>
-      <Head kicker="06 · Using it: the procedure" title="Eleven steps, each tied to a clause" />
+      <Head kicker="05 · Using it: the procedure" title="Eleven steps, each tied to a clause" />
       <div className="proc-print">
         {PROC_STEPS.map((s, n) => (
           <div key={s.name}>
@@ -186,7 +186,7 @@ export function ProcedureSlide({ step, setStep }) {
   const k = Math.min(step, PROC_STEPS.length - 1);
   return (
     <>
-      <Head kicker="06 · Using it: the procedure" title="Eleven steps, each tied to a clause" />
+      <Head kicker="05 · Using it: the procedure" title="Eleven steps, each tied to a clause" />
       <ol className="proc">
         {PROC_STEPS.map((s, n) => (
           <li key={s.name} className={`${n < k ? 'done' : ''} ${n === k ? 'cur' : ''}`}>
@@ -251,7 +251,7 @@ export function Fig1Slide() {
 
   return (
     <>
-      <Head kicker="07 · Figure 1, live" title="Reading w/c off the strength curves" />
+      <Head kicker="06 · Figure 1, live" title="Reading w/c off the strength curves" />
       <div className="fig1">
         <svg viewBox={`0 0 ${W} ${H}`} className="fig1-plot" role="img" aria-label="Figure 1 of IS 10262 with the target strength and readings">
           {[0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65].map((wc) => (
@@ -374,7 +374,7 @@ export function DurabilitySlide() {
   const adj = IS456_TABLE_6_CEMENT_ADJ[st.msa];
   return (
     <>
-      <Head kicker="08 · Durability" title="IS 456 Table 5: limits for each exposure condition" />
+      <Head kicker="07 · Durability" title="IS 456 Table 5: limits for each exposure condition" />
       <div className="expo-row">
         {EXPOSURES.map(([k, l], n) => (
           <button type="button" key={k} className={`expo ${st.exposure === k ? 'on' : ''}`} style={{ '--lvl': n }} onClick={() => set({ ...st, exposure: k })}>

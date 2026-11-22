@@ -41,7 +41,7 @@ const CASE_NAME = {
 export function VerificationSlide({ step }) {
   return (
     <>
-      <Head kicker="11 · Verification" title="It reproduces the standard's own worked examples" />
+      <Head kicker="10 · Verification" title="It reproduces the standard's own worked examples" />
       <div className="verify">
         <div className="vt">
           <div className="vt-cap">
@@ -138,7 +138,7 @@ const HV_ROWS = [
 export function HandSlide({ step }) {
   return (
     <>
-      <Head kicker="12 · Our M40 by hand" title="Same inputs, same answer, at either reading of Figure 1" />
+      <Head kicker="11 · Our M40 by hand" title="Same inputs, same answer, at either reading of Figure 1" />
       <div className={`hv ${step >= 1 ? 'both' : ''}`}>
         <table>
           <thead>
@@ -233,7 +233,7 @@ export function FeaturesSlide() {
   const t = M40.trials;
   return (
     <>
-      <Head kicker="13 · Beyond the mix" title="What else the calculator does" />
+      <Head kicker="12 · Beyond the mix" title="What else the calculator does" />
       <div className="bento">
         <div className="tile big">
           <Kicker>Aggregate grading · cl. 5.6</Kicker>
@@ -296,7 +296,7 @@ const LIMITS = [
 export function LimitsSlide() {
   return (
     <>
-      <Head kicker="14 · Limitations" title="What the calculator does not replace" />
+      <Head kicker="13 · Limitations" title="What the calculator does not replace" />
       <div className="limits">
         {LIMITS.map(([a, b], k) => (
           <div className="limit" key={a}>
@@ -318,7 +318,7 @@ export function ConclusionSlide() {
   return (
     <div className="concl">
       <div className="concl-left">
-        <Kicker className="light">15 · Conclusion</Kicker>
+        <Kicker className="light">14 · Conclusion</Kicker>
         <ul>
           <li>
             <b>Follows IS 10262 : 2019 step by step</b>, all four sections, M10 to M100, with IS 456 limits applied
